@@ -59,7 +59,7 @@ var parametros_pesquisa = {
     "quantidade": 10,
     "cor": "colorida",
     "gola": "gola_v",
-    "qualidade": "q150",
+    "qualidade": "q10",
     "estampa": "com_estampa",
     "embalagem": "bulk"
 }
@@ -86,16 +86,41 @@ $(function(){
 
     // Se quiser uma sugestão dos passos a seguir para a resolução, veja mais abaixo.
     
+
+
 });
 
 
+function atualizar_orcamento(parametros){
 
+    var quantidade = parametros.quantidade;
+    var valor_unit = camisetas[parametros.cor][parametros.gola][parametros.estampa].preco_unit;
+    var foto = 'img/' + camisetas[parametros.cor][parametros.gola][parametros.estampa].foto;
 
+    var valor_total = quantidade * valor_unit;
 
+    if(parametros.qualidade == 'q190'){
+        valor_total *= 1.12;
+    }
+    
+    if(parametros.embalagem == 'unitaria'){
+        valor_total *= 1.15;
+    }
 
+    if(parametros.quantidade >= 1000){
+        valor_total *= 0.85;
+    } else if(parametros.quantidade >= 500){
+        valor_total *= 0.90;
+    } else if(parametros.quantidade >= 100){
+        valor_total *= 0.95;
+    }
 
+    $('.refresh-loader').hide()
+    console.log(valor_total)
 
+}
 
+atualizar_orcamento(parametros_pesquisa)
 
 
 
